@@ -1,26 +1,32 @@
-import { IService } from "services/IService";
-import { IDbItem }  from "model/IDbItem";
-import { Client }   from "ts-postgres";
+import { IService }  from "services/IService";
+import { Question }  from "model/Question";
+import { SqlClient } from "config/SqlClient";
 
 export class QuestionService implements IService {
+    sqlClient: SqlClient;
 
-    async getAll(): Promise<IDbItem[]> {
+    async getAll(): Promise<Question[]> {
 
-        const client = new Client({
-            "host": process.env.DB_HOST || "admin.squarecell.eu",
-            "port": parseInt(process.env.DB_PORT || "5432"),
-            "user": process.env.DB_USER || "onpp",
-            "database": process.env.DB_NAME || "onpp",
-            "password": process.env.DB_PASSWORD || "onppDiwa"
-        });
-        await client.connect();
+        const poolClient = await this.sqlClient.getClient();
 
-        const result = client.query("SELECT * FROM question");
+        let questions: Question[];
 
-        for await (const row of result) {
-            console.log(row.get("final_question"));
+        try {
+            const items = await poolClient.query("SELECT * FROM question");
+
+            questions = items.rows.map(value => {
+                return new Question(value.id, value.final_question);
+            });
+
+        } finally {
+            await poolClient.release();
         }
 
-        return [];
+        return questions;
     }
+
+    constructor(sqlClient: SqlClient) {
+        this.sqlClient = sqlClient;
+    }
+
 }

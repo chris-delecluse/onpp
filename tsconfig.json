@@ -3,11 +3,11 @@
     "rootDir": "./src",
     "baseUrl": "./src",
     "outDir": "./dist",
-    "target": "es2017",
+    "target": "ESNext",
     "lib": [
       "esnext"
     ],
-    "module": "commonjs",
+    "module": "ESNext",
     "paths": {
       "*": [
       "*"

@@ -1,6 +1,7 @@
-import { Pool } from "pg";
+import { Pool, PoolClient } from "pg";
+import { ISqlClient }       from "config/ISqlClient";
 
-export class SqlClient {
+export class SqlClient implements ISqlClient{
     host: string;
     port: number;
     user: string;
@@ -25,7 +26,7 @@ export class SqlClient {
         });
     }
 
-    async getClient() {
+    async getClient(): Promise<PoolClient> {
         return await this.pool.connect();
     }
 }

@@ -3,10 +3,6 @@ import { SqlClient }  from "config/SqlClient";
 import { UserAnswer } from "model/UserAnswer";
 
 export class UserAnswerService implements IService {
-    constructor(sqlClient: SqlClient) {
-        this.sqlClient = sqlClient;
-    }
-
     sqlClient: SqlClient;
 
     async getAll(): Promise<UserAnswer[]> {
@@ -30,6 +26,10 @@ export class UserAnswerService implements IService {
         }
 
         return questionSolution;
+    }
+
+    constructor(sqlClient: SqlClient) {
+        this.sqlClient = sqlClient;
     }
 
 }

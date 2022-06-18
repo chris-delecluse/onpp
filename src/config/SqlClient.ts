@@ -1,13 +1,18 @@
-import { Pool } from "pg";
+import { Pool, PoolClient } from "pg";
+import { ISqlClient }       from "config/ISqlClient";
 
-export class SqlClient {
+export class SqlClient implements ISqlClient {
     host: string;
     port: number;
     user: string;
     database: string;
     password: string;
 
-    private pool: Pool;
+    async getClient(): Promise<PoolClient> {
+        return await this.pool.connect();
+    }
+
+    private readonly pool: Pool;
 
     constructor(host: string, port: number, user: string, database: string, password: string) {
         this.host     = host;
@@ -23,9 +28,6 @@ export class SqlClient {
             "database": this.database,
             "password": this.password
         });
-    }
 
-    async getClient() {
-        return await this.pool.connect();
     }
 }

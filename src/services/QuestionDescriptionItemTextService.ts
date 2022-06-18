@@ -1,14 +1,9 @@
 import { IService }                    from "services/IService";
-import { IDbItem }                     from "model/IDbItem";
 import { SqlClient }                   from "config/SqlClient";
 import { QuestionDescriptionItemText } from "model/QuestionDescriptionItemText";
 
 export class QuestionDescriptionItemTextService implements IService {
     sqlClient: SqlClient;
-
-    constructor(sqlClient: SqlClient) {
-        this.sqlClient = sqlClient;
-    }
 
     async getAll(): Promise<QuestionDescriptionItemText[]> {
 
@@ -29,6 +24,10 @@ export class QuestionDescriptionItemTextService implements IService {
         }
 
         return questionDescriptionItemTexts;
+    }
+
+    constructor(sqlClient: SqlClient) {
+        this.sqlClient = sqlClient;
     }
 
 }

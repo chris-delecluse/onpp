@@ -2,23 +2,24 @@
   "name": "on-ne-passe-pas",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/app.js",
-  "scripts": {
-    "build": "tsup src/app.ts --format cjs --clean",
-    "start": "npm run build && node ./dist/app.js",
-    "dev": "npm run build; npm run start",
-    "test": "jasmine --config=./jasmine.json"
-  },
+  "main": "dist/app.js",
   "type": "commonjs",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node -r ts-node/register -r tsconfig-paths/register ./src/app.ts",
+    "dev": "nodemon",
+    "test": "ts-node -r tsconfig-paths/register ./node_modules/jasmine/bin/jasmine"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mikro-orm/core": "^5.2.0",
+    "@mikro-orm/postgresql": "^5.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "pg": "^8.7.3",
-    "tsup": "^6.1.2"
+    "pg": "^8.7.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -26,11 +27,22 @@
     "@types/jasmine": "^4.0.3",
     "@types/node": "^18.0.0",
     "@types/pg": "^8.6.5",
-    "jasmine": "^4.2.0",
-    "jasmine-spec-reporter": "^7.0.0",
-    "jasmine-ts": "^0.4.0",
+    "jasmine": "^4.2.1",
     "nodemon": "^2.0.16",
     "ts-node": "^10.8.1",
+    "tsconfig-paths": "^4.0.0",
     "typescript": "^4.7.4"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "./src"
+    ],
+    "exec": "node -r ts-node/register -r tsconfig-paths/register ./src/app.ts",
+    "ext": "ts, js"
   }
 }

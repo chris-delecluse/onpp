@@ -1,12 +1,11 @@
 import { IService }           from "services/IService";
 import { SqlClient }          from "config/SqlClient";
-import { IDbItem }            from "model/IDbItem";
 import { QuestionAnswerItem } from "model/QuestionAnswerItem";
 
 export class QuestionAnswerItemService implements IService {
     sqlClient: SqlClient;
 
-    async getAll(): Promise<IDbItem[]> {
+    async getAll(): Promise<QuestionAnswerItem[]> {
 
         const poolClient = await this.sqlClient.getClient();
 

@@ -4,11 +4,11 @@ import { Question }        from "model/Question";
 import dotenv              from "dotenv";
 
 const sqlClient = new SqlClient(
-    process.env.DB_HOST || "admin.squarecell.eu",
-    parseInt(process.env.DB_PORT || "5432"),
-    process.env.DB_USER || "onpp",
-    process.env.DB_NAME || "onpp",
-    process.env.DB_PASSWORD || "onppDiwa"
+    process.env.DB_HOST || "",
+    parseInt(process.env.DB_PORT || ""),
+    process.env.DB_USER || "",
+    process.env.DB_NAME || "",
+    process.env.DB_PASSWORD || ""
 );
 
 describe("getting all questions should return all questions", async () => {

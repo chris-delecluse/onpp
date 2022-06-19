@@ -1,32 +1,28 @@
-import { IService }  from "services/IService";
-import { Question }  from "model/Question";
-import { SqlClient } from "config/SqlClient";
+import { IService }                    from "services/IService";
+import { Question }                    from "entities/Question";
+import { SqlClient }                   from "config/SqlClient";
+import { MikroORM, UseRequestContext } from "@mikro-orm/core";
+import { throwError }                  from "services/Error";
 
 export class QuestionService implements IService {
     sqlClient: SqlClient;
+    orm: MikroORM;
 
+    @UseRequestContext()
     async getAll(): Promise<Question[]> {
 
-        const poolClient = await this.sqlClient.getClient();
-
-        let questions: Question[];
-
-        try {
-            const items = await poolClient.query("SELECT * FROM question");
-
-            questions = items.rows.map(value => {
-                return new Question(value.id, value.final_question);
-            });
-
-        } finally {
-            await poolClient.release();
-        }
-
-        return questions;
+        return await this.orm.em.find(Question, {});
     }
 
-    constructor(sqlClient: SqlClient) {
+    async getOne(id: number): Promise<Question> {
+
+        return await this.orm.em.findOne(Question, id,
+                   {populate: ["questionSolution", "questionAnswerItem", "descriptionItems", "userAnswer"]}) ??
+               throwError(`Cannot find this question with id: ${id}`);
+    }
+
+    constructor(sqlClient: SqlClient, orm: MikroORM) {
         this.sqlClient = sqlClient;
+        this.orm       = orm;
     }
-
 }

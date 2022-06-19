@@ -1,34 +1,22 @@
 import { IService }         from "services/IService";
 import { SqlClient }        from "config/SqlClient";
 import { QuestionSolution } from "model/QuestionSolution";
+import { MikroORM, t }      from "@mikro-orm/core";
 
 export class QuestionSolutionService implements IService {
     sqlClient: SqlClient;
+    orm: MikroORM
 
     async getAll(): Promise<QuestionSolution[]> {
 
-        const poolClient = await this.sqlClient.getClient();
 
-        let questionSolutions: QuestionSolution[];
 
-        try {
-            const items = await poolClient.query("SELECT * FROM question_solution");
-
-            questionSolutions = items.rows.map(value => new QuestionSolution(
-                value.id,
-                value.question_id,
-                value.answer_index
-            ));
-
-        } finally {
-            await poolClient.release();
-        }
-
-        return questionSolutions;
+        return []
     }
 
-    constructor(sqlClient: SqlClient) {
+    constructor(sqlClient: SqlClient, orm: MikroORM) {
         this.sqlClient = sqlClient;
+        this.orm = orm;
     }
 
 }

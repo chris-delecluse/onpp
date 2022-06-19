@@ -45,6 +45,13 @@ class QuestionController {
             .json(result);
     }
 
+    async getQuestionById(req: Request, res: Response, id: number) {
+        const result = await this.service.getOne(id);
+        return res
+            .status(200)
+            .json(result);
+    }
+
     async getAllDescriptionItems(req: Request, res: Response) {
         const result = await this.questionDescriptionItemService.getAll();
         return res

@@ -1,7 +1,7 @@
 import { IService }           from "services/IService";
 import { SqlClient }          from "config/SqlClient";
 import { QuestionAnswerItem } from "entities/QuestionAnswerItem";
-import { MikroORM, t }        from "@mikro-orm/core";
+import { MikroORM }           from "@mikro-orm/core";
 
 export class QuestionAnswerItemService implements IService {
     sqlClient: SqlClient;
@@ -9,8 +9,7 @@ export class QuestionAnswerItemService implements IService {
 
     async getAll(): Promise<QuestionAnswerItem[]> {
 
-
-        return [];
+        return await this.orm.em.find(QuestionAnswerItem, {});
     }
 
     constructor(sqlClient: SqlClient, orm: MikroORM) {

@@ -1,22 +1,21 @@
 import { IService }         from "services/IService";
 import { SqlClient }        from "config/SqlClient";
-import { QuestionSolution } from "model/QuestionSolution";
-import { MikroORM, t }      from "@mikro-orm/core";
+import { MikroORM }         from "@mikro-orm/core";
+import { QuestionSolution } from "entities/QuestionSolution";
 
 export class QuestionSolutionService implements IService {
     sqlClient: SqlClient;
-    orm: MikroORM
+    orm: MikroORM;
 
     async getAll(): Promise<QuestionSolution[]> {
+        await this.orm.em.find(QuestionSolution, {});
 
-
-
-        return []
+        return [];
     }
 
     constructor(sqlClient: SqlClient, orm: MikroORM) {
         this.sqlClient = sqlClient;
-        this.orm = orm;
+        this.orm       = orm;
     }
 
 }

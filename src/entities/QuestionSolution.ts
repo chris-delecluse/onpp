@@ -1,5 +1,5 @@
-import { Entity, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
-import { Question }                                from "entities/Question";
+import { Entity, ManyToOne, OneToOne, PrimaryKey, Property } from "@mikro-orm/core";
+import { Question }                                          from "entities/Question";
 
 @Entity()
 export class QuestionSolution {
@@ -12,7 +12,7 @@ export class QuestionSolution {
     @PrimaryKey()
     id!: number;
 
-    @ManyToOne(() => Question)
+    @OneToOne(() => Question)
     question!: Question;
 
     @Property()

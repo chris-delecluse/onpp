@@ -1,14 +1,15 @@
-import { Collection, Entity, OneToMany, PrimaryKey, Property } from "@mikro-orm/core";
-import { QuestionDescriptionItem }                             from "entities/QuestionDescriptionItem";
-import { QuestionSolution }                                    from "entities/QuestionSolution";
-import { QuestionAnswerItem }                                  from "entities/QuestionAnswerItem";
-import { UserAnswer }                                          from "entities/UserAnswer";
+import { Collection, Entity, OneToMany, OneToOne, PrimaryKey, Property } from "@mikro-orm/core";
+import { QuestionDescriptionItem }                                       from "entities/QuestionDescriptionItem";
+import { QuestionSolution }                                              from "entities/QuestionSolution";
+import { QuestionAnswerItem }                                            from "entities/QuestionAnswerItem";
+import { UserAnswer }                                                    from "entities/UserAnswer";
 
 @Entity()
 export class Question {
 
-    constructor(question: string) {
-        this.finalQuestion = question;
+    constructor(question: string, solution: QuestionSolution) {
+        this.finalQuestion    = question;
+        this.questionSolution = solution;
     }
 
     @PrimaryKey()
@@ -17,8 +18,8 @@ export class Question {
     @OneToMany(() => QuestionDescriptionItem, qdi => qdi.question)
     descriptionItems = new Collection<QuestionDescriptionItem>(this);
 
-    @OneToMany(() => QuestionSolution, qs => qs.question)
-    questionSolution = new Collection<QuestionSolution>(this);
+    @OneToOne(() => QuestionSolution)
+    questionSolution!: QuestionSolution;
 
     @OneToMany(() => QuestionAnswerItem, qai => qai.question)
     questionAnswerItem = new Collection<QuestionDescriptionItem>(this);

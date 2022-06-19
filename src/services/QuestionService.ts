@@ -14,6 +14,7 @@ export class QuestionService implements IService {
         return await this.orm.em.find(Question, {});
     }
 
+    @UseRequestContext()
     async getOne(id: number): Promise<Question> {
 
         return await this.orm.em.findOne(Question, id,

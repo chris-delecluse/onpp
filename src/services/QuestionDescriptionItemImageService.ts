@@ -1,22 +1,19 @@
 import { IService }                     from "services/IService";
 import { SqlClient }                    from "config/SqlClient";
-import { QuestionDescriptionItemImage } from "model/QuestionDescriptionItemImage";
 import { MikroORM }                     from "@mikro-orm/core";
-import { QuestionSolution }             from "model/QuestionSolution";
+import { QuestionDescriptionItemImage } from "entities/QuestionDescriptionItemImage";
 
 export class QuestionDescriptionItemImageService implements IService {
     sqlClient: SqlClient;
-    orm: MikroORM
+    orm: MikroORM;
 
     async getAll(): Promise<QuestionDescriptionItemImage[]> {
 
-
-
-        return []
+        return await this.orm.em.find(QuestionDescriptionItemImage, {});
     }
 
     constructor(sqlClient: SqlClient, orm: MikroORM) {
         this.sqlClient = sqlClient;
-        this.orm = orm;
+        this.orm       = orm;
     }
 }

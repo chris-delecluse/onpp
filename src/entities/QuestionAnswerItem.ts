@@ -1,9 +1,10 @@
 import { Entity, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import { Question }                                from "entities/Question";
+import { AnswerIndex }                             from "entities/AnswerIndex";
 
 @Entity()
 export class QuestionAnswerItem {
-    constructor(question: Question, content: string, index: number) {
+    constructor(question: Question, content: string, index: AnswerIndex) {
         this.question = question;
         this.content  = content;
         this.index    = index;
@@ -19,5 +20,5 @@ export class QuestionAnswerItem {
     content!: string;
 
     @Property()
-    index!: number;
+    index!: AnswerIndex;
 }

@@ -13,6 +13,7 @@ import { UserAnswerService }                   from "services/UserAnswerService"
 import { UserAnswerResultService }             from "services/UserAnswerResultService";
 import { MikroORM, RequestContext }            from "@mikro-orm/core";
 import { PostgreSqlDriver }                    from "@mikro-orm/postgresql";
+import { InitDatabase }                        from "config/InitDatabase";
 
 dotenv.config();
 
@@ -21,7 +22,9 @@ const port         = process.env.PORT;
 
 const main = async () => {
     const orm = await MikroORM.init<PostgreSqlDriver>();
-    await orm.getSchemaGenerator().updateSchema({wrap: false});
+
+    const initDb = new InitDatabase(orm);
+    await initDb.resetDb()
 
     const sqlClient = new SqlClient(
         process.env.DB_HOST || "",

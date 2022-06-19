@@ -1,8 +1,7 @@
-import { IService }         from "services/IService";
-import { SqlClient }        from "config/SqlClient";
-import { UserAnswer }       from "model/UserAnswer";
-import { MikroORM }         from "@mikro-orm/core";
-import { QuestionSolution } from "model/QuestionSolution";
+import { IService }   from "services/IService";
+import { SqlClient }  from "config/SqlClient";
+import { MikroORM }   from "@mikro-orm/core";
+import { UserAnswer } from "entities/UserAnswer";
 
 export class UserAnswerService implements IService {
     sqlClient: SqlClient;

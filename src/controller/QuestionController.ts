@@ -100,6 +100,13 @@ class QuestionController {
             .status(200)
             .json(result);
     }
+
+    async getAnswerByUserId(req: Request, res: Response, id: number) {
+        const result = await this.userAnswerResultService.getOne(id);
+        return res
+            .status(200)
+            .json(result);
+    }
 }
 
 export { QuestionController };

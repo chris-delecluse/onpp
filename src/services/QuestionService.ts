@@ -18,7 +18,7 @@ export class QuestionService implements IService {
     async getOne(id: number): Promise<Question> {
 
         return await this.orm.em.findOne(Question, id,
-                   {populate: ["questionSolution", "questionAnswerItem", "descriptionItems", "userAnswer"]}) ??
+                   {populate: ["questionAnswerItem", "descriptionItems", "userAnswer"]}) ??
                throwError(`Cannot find this question with id: ${id}`);
     }
 

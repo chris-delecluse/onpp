@@ -24,9 +24,15 @@ export class InitDatabase {
     userAnswer: UserAnswer[]               = [];
     userAnswerResult: UserAnswerResult[]   = [];
 
-    constructor(orm: MikroORM<PostgreSqlDriver>) {
+    result: AnyEntity<any>[] = [];
+
+    constructor(orm: MikroORM<PostgreSqlDriver>, dev: boolean) {
         this.orm = orm;
         this.em  = orm.em.fork();
+
+        if (dev) {
+            // reset and init fake data in database
+        }
     }
 
     resetDb = async () => {
@@ -44,10 +50,10 @@ export class InitDatabase {
     addQuestions = async () => {
 
         this.questions = [
-            new Question("de quel couleur est la voiture rouge", this.questionSolutions[0]),
-            new Question("combient fais 3X2", this.questionSolutions[1]),
-            new Question("que signifie FR", this.questionSolutions[2]),
-            new Question("la communaute de LOL est elle toxic ?", this.questionSolutions[3])
+            new Question("de quel couleur est la voiture rouge"),
+            new Question("combient fais 3X2"),
+            new Question("que signifie FR"),
+            new Question("la communaute de LOL est elle toxic ?")
         ];
 
         this.questionSolutions = [
@@ -129,6 +135,4 @@ export class InitDatabase {
 
         console.log(this.result);
     };
-
-    result: AnyEntity<any>[] = [];
 }

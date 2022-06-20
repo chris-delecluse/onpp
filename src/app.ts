@@ -23,8 +23,8 @@ const port         = process.env.PORT;
 const main = async () => {
     const orm = await MikroORM.init<PostgreSqlDriver>();
 
-    const initDb = new InitDatabase(orm);
-    await initDb.resetDb()
+    const initDb = new InitDatabase(orm, false);
+    await initDb.resetDb();
 
     const sqlClient = new SqlClient(
         process.env.DB_HOST || "",
@@ -97,6 +97,10 @@ const main = async () => {
         questionController.getAllAnswerResults(req, res)
     );
 
+    app.get("/user/answer/result/:id", async (req, res) =>
+        questionController.getAnswerByUserId(req, res, parseInt(req.params.id))
+    );
+
     app.listen(port, () => {
         console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
     });
@@ -104,5 +108,3 @@ const main = async () => {
 
 main()
     .then(() => console.log("finished"));
-
-

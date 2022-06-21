@@ -1,6 +1,5 @@
 import { QuestionService } from "services/QuestionService";
 import { SqlClient }       from "config/SqlClient";
-import { Question }        from "model/Question";
 import dotenv              from "dotenv";
 
 const sqlClient = new SqlClient(

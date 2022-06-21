@@ -1,32 +1,22 @@
-import { IService }  from "services/IService";
-import { Question }  from "model/Question";
+import { IService } from "services/IService";
 import { SqlClient } from "config/SqlClient";
+import { Question } from "entities/Question";
+import { AppDataSource } from "data-source";
+import { throwError } from "services/error";
 
 export class QuestionService implements IService {
     sqlClient: SqlClient;
 
     async getAll(): Promise<Question[]> {
+        return await AppDataSource.getRepository(Question).find();
+    }
 
-        const poolClient = await this.sqlClient.getClient();
-
-        let questions: Question[];
-
-        try {
-            const items = await poolClient.query("SELECT * FROM question");
-
-            questions = items.rows.map(value => {
-                return new Question(value.id, value.final_question);
-            });
-
-        } finally {
-            await poolClient.release();
-        }
-
-        return questions;
+    async getOne(id: number): Promise<any> {
+        return await AppDataSource.getRepository(Question).findOneBy({id: id}) ??
+               throwError(`Cannot find this question with id ${id}`);
     }
 
     constructor(sqlClient: SqlClient) {
         this.sqlClient = sqlClient;
     }
-
 }

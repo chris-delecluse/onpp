@@ -1,5 +1,5 @@
-import { IDbItem }   from "model/IDbItem";
 import { SqlClient } from "config/SqlClient";
+import { IDbItem } from "services/IDbItem";
 
 export interface IService {
 

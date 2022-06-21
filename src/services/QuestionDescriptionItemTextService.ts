@@ -1,29 +1,13 @@
-import { IService }                    from "services/IService";
-import { SqlClient }                   from "config/SqlClient";
-import { QuestionDescriptionItemText } from "model/QuestionDescriptionItemText";
+import { IService } from "services/IService";
+import { SqlClient } from "config/SqlClient";
+import { QuestionDescriptionItem } from "entities/QuestionDescriptionItem";
 
 export class QuestionDescriptionItemTextService implements IService {
     sqlClient: SqlClient;
 
-    async getAll(): Promise<QuestionDescriptionItemText[]> {
+    async getAll(): Promise<QuestionDescriptionItem[]> {
 
-        const poolClient = await this.sqlClient.getClient();
-
-        let questionDescriptionItemTexts: QuestionDescriptionItemText[];
-
-        try {
-            const items = await poolClient.query("SELECT * FROM question_description_item_text");
-
-            questionDescriptionItemTexts = items.rows.map(value => new QuestionDescriptionItemText(
-                value.id,
-                value.content
-            ));
-
-        } finally {
-            await poolClient.release();
-        }
-
-        return questionDescriptionItemTexts;
+        return [];
     }
 
     constructor(sqlClient: SqlClient) {

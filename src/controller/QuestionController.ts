@@ -1,12 +1,12 @@
-import { Request, Response }                   from "express";
-import { QuestionService }                     from "services/QuestionService";
-import { QuestionDescriptionItemService }      from "services/QuestionDescriptionItemService";
-import { QuestionAnswerItemService }           from "services/QuestionAnswerItemService";
+import { Request, Response } from "express";
+import { QuestionService } from "services/QuestionService";
+import { QuestionDescriptionItemService } from "services/QuestionDescriptionItemService";
+import { QuestionAnswerItemService } from "services/QuestionAnswerItemService";
 import { QuestionDescriptionItemImageService } from "services/QuestionDescriptionItemImageService";
-import { QuestionDescriptionItemTextService }  from "services/QuestionDescriptionItemTextService";
-import { QuestionSolutionService }             from "services/QuestionSolutionService";
-import { UserAnswerService }                   from "services/UserAnswerService";
-import { UserAnswerResultService }             from "services/UserAnswerResultService";
+import { QuestionDescriptionItemTextService } from "services/QuestionDescriptionItemTextService";
+import { QuestionSolutionService } from "services/QuestionSolutionService";
+import { UserAnswerService } from "services/UserAnswerService";
+import { UserAnswerResultService } from "services/UserAnswerResultService";
 
 class QuestionController {
     private service: QuestionService;
@@ -40,6 +40,13 @@ class QuestionController {
 
     async getAllQuestions(req: Request, res: Response) {
         const result = await this.service.getAll();
+        return res
+            .status(200)
+            .json(result);
+    }
+
+    async getQuestionById(req: Request, res: Response, id: number) {
+        const result = await this.service.getOne(id);
         return res
             .status(200)
             .json(result);

@@ -31,7 +31,6 @@ export class InitDatabase {
     qdItems: QuestionDescriptionItem[]     = [];
     images: QuestionDescriptionItemImage[] = [];
     texts: QuestionDescriptionItemText[]   = [];
-
     userAnswerResult: UserAnswerResult[] = [];
 
     constructor(dev: boolean) {

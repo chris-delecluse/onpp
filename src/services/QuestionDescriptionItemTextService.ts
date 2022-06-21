@@ -1,13 +1,20 @@
 import { IService } from "services/IService";
 import { SqlClient } from "config/SqlClient";
-import { QuestionDescriptionItem } from "entities/QuestionDescriptionItem";
+import { AppDataSource } from "data-source";
+import { QuestionDescriptionItemText } from "entities/QuestionDescriptionItemText";
+import { throwError } from "services/error";
 
 export class QuestionDescriptionItemTextService implements IService {
     sqlClient: SqlClient;
 
-    async getAll(): Promise<QuestionDescriptionItem[]> {
+    async getAll(): Promise<QuestionDescriptionItemText[]> {
+        return await AppDataSource.getRepository(QuestionDescriptionItemText).find();
+    }
 
-        return [];
+    async getOne(id: number): Promise<QuestionDescriptionItemText> {
+        return await AppDataSource.getRepository(QuestionDescriptionItemText).findOne({
+            where: {id: id}
+        }) ?? throwError(`Cannot find this description item text with id ${id}`);
     }
 
     constructor(sqlClient: SqlClient) {

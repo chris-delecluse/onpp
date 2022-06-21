@@ -76,8 +76,16 @@ const main = async () => {
         questionController.getAllDescriptionItemImages(req, res)
     );
 
+    app.get("/question/description/item/image/:id", async (req, res) =>
+        questionController.getDescriptionItemImageById(req, res, parseInt(req.params.id))
+    );
+
     app.get("/question/description/item/text", async (req, res) =>
         questionController.getAllDescriptionItemTexts(req, res)
+    );
+
+    app.get("/question/description/item/text/:id", async (req, res) =>
+        questionController.getDescriptionItemTextById(req, res, parseInt(req.params.id))
     );
 
     app.get("/question/solution", async (req, res) =>

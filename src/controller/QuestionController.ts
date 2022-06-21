@@ -73,8 +73,22 @@ class QuestionController {
             .json(result);
     }
 
+    async getDescriptionItemImageById(req: Request, res: Response, id: number) {
+        const result = await this.questionDescriptionItemImageService.getOne(id);
+        return res
+            .status(200)
+            .json(result);
+    }
+
     async getAllDescriptionItemTexts(req: Request, res: Response) {
         const result = await this.questionDescriptionItemTextService.getAll();
+        return res
+            .status(200)
+            .json(result);
+    }
+
+    async getDescriptionItemTextById(req: Request, res: Response, id: number) {
+        const result = await this.questionDescriptionItemTextService.getOne(id);
         return res
             .status(200)
             .json(result);

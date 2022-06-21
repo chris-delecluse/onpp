@@ -14,7 +14,7 @@ export class QuestionAnswerItem {
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @ManyToOne(() => Question, (q) => q.id)
+    @ManyToOne(() => Question, q => q.id)
     question: Question;
 
     @Column({length: 512})

@@ -93,9 +93,9 @@ const main = async () => {
     );
 
     app.listen(port, () => {
-        console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+        console.log(`Server is running at http://localhost:${port}`);
     });
 };
 
 main()
-    .then(() => console.log("finished"));
+    .then(() => console.log("Process finished"));

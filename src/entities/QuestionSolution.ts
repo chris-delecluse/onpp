@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Question } from "entities/Question";
 import { AnswerIndex } from "entities/AnswerIndex";
 
@@ -6,16 +6,15 @@ import { AnswerIndex } from "entities/AnswerIndex";
 export class QuestionSolution {
 
     constructor(question: Question, answerIndex: AnswerIndex) {
-        this.question    = question;
+        this.questionId    = question;
         this.answerIndex = answerIndex;
     }
 
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @OneToOne(() => Question, (q) => q.id)
-    @JoinColumn()
-    question: Question;
+    @ManyToOne(() => Question, (q) => q.id)
+    questionId: Question;
 
     @Column()
     answerIndex: AnswerIndex;

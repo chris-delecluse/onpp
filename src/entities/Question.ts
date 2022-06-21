@@ -1,7 +1,16 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity, JoinColumn,
+    OneToMany,
+    OneToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
 import { QuestionDescriptionItem } from "entities/QuestionDescriptionItem";
 import { QuestionAnswerItem } from "entities/QuestionAnswerItem";
 import { UserAnswer } from "entities/UserAnswer";
+import { QuestionSolution } from "entities/QuestionSolution";
 
 @Entity()
 export class Question {
@@ -21,6 +30,9 @@ export class Question {
 
     @OneToMany(() => UserAnswer, (ua) => ua.question)
     userAnswer!: UserAnswer[];
+
+    @OneToMany(() => QuestionSolution, (qs) => qs.questionId)
+    questionSolution!: QuestionSolution[];
 
     @Column({length: 512})
     finalQuestion: string;

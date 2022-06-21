@@ -11,22 +11,36 @@ import { UserAnswerResult } from "entities/UserAnswerResult";
 import { AppDataSource } from "data-source";
 
 export class InitDatabase {
-    questions: Question[]                  = [];
+
+    questions: Question[] = [
+        new Question("de quel couleur est la voiture rouge"),
+        new Question("combient fais 3X2"),
+        new Question("que signifie FR"),
+        new Question("la communaute de LOL est elle toxic ?")
+    ];
+
+    userAnswer: UserAnswer[] = [
+        new UserAnswer(this.questions[0], AnswerIndex.Third, "billy"),
+        new UserAnswer(this.questions[1], AnswerIndex.Fourth, "billy"),
+        new UserAnswer(this.questions[2], AnswerIndex.First, "billy"),
+        new UserAnswer(this.questions[3], AnswerIndex.Second, "billy")
+    ];
+
     questionSolutions: QuestionSolution[]  = [];
     questionAnswers: QuestionAnswerItem[]  = [];
     qdItems: QuestionDescriptionItem[]     = [];
     images: QuestionDescriptionItemImage[] = [];
     texts: QuestionDescriptionItemText[]   = [];
-    userAnswer: UserAnswer[]               = [];
-    userAnswerResult: UserAnswerResult[]   = [];
+
+    userAnswerResult: UserAnswerResult[] = [];
 
     constructor(dev: boolean) {
 
         if (dev) {
             this.insertQuestion()
-                .then(() => this.insertQuestionSolution())
                 .then(() => this.insertQuestionAnswer())
                 .then(() => this.insertQuestionDescriptionItems())
+                .then(() => this.insertQuestionSolution())
                 .then(() => this.insertImages())
                 .then(() => this.insertTexts())
                 .then(() => this.insertUserAnswers())
@@ -36,12 +50,7 @@ export class InitDatabase {
 
     insertQuestion = async () => {
         const questions = await AppDataSource.getRepository(Question);
-        await questions.insert([
-            new Question("de quel couleur est la voiture rouge"),
-            new Question("combient fais 3X2"),
-            new Question("que signifie FR"),
-            new Question("la communaute de LOL est elle toxic ?")
-        ]);
+        await questions.insert(this.questions);
     };
 
     insertQuestionSolution = async () => {
@@ -113,12 +122,7 @@ export class InitDatabase {
 
     insertUserAnswers = async () => {
         const userAnswers = await AppDataSource.getRepository(UserAnswer);
-        await userAnswers.insert([
-            new UserAnswer(this.questions[0], AnswerIndex.Third, "billy"),
-            new UserAnswer(this.questions[1], AnswerIndex.Fourth, "billy"),
-            new UserAnswer(this.questions[2], AnswerIndex.First, "billy"),
-            new UserAnswer(this.questions[3], AnswerIndex.Second, "billy")
-        ]);
+        await userAnswers.insert(this.userAnswer);
     };
 
     insertAnswerResults = async () => {

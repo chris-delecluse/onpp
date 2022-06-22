@@ -12,7 +12,7 @@ import { AppDataSource } from "data-source";
 
 export class InitDatabase {
 
-    questions: Question[] = [
+    questions: Question[]    = [
         new Question("de quel couleur est la voiture rouge"),
         new Question("combient fais 3X2"),
         new Question("que signifie FR"),
@@ -31,7 +31,7 @@ export class InitDatabase {
     qdItems: QuestionDescriptionItem[]     = [];
     images: QuestionDescriptionItemImage[] = [];
     texts: QuestionDescriptionItemText[]   = [];
-    userAnswerResult: UserAnswerResult[] = [];
+    userAnswerResult: UserAnswerResult[]   = [];
 
     constructor(dev: boolean) {
 

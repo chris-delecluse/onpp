@@ -55,6 +55,9 @@ const main = async () => {
 
     app.use(cors());
     app.use(express.json());
+    app.use(express.urlencoded({
+        extended: false
+    }));
 
     app.get("/question", async (req, res) =>
         questionController.getAllQuestions(req, res)
@@ -94,6 +97,10 @@ const main = async () => {
 
     app.get("/user/answer", async (req, res) =>
         questionController.getAllUserAnswers(req, res)
+    );
+
+    app.post("/user/answer", async (req, res) =>
+        questionController.postUserAnswer(req, res)
     );
 
     app.get("/user/answer/result", async (req, res) =>

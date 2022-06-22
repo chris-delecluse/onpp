@@ -3,16 +3,18 @@ import { SqlClient } from "config/SqlClient";
 import { Question } from "entities/Question";
 import { AppDataSource } from "data-source";
 import { throwError } from "services/error";
+import { Repository } from "typeorm";
 
 export class QuestionService implements IService {
     sqlClient: SqlClient;
+    questionRepository: Repository<Question>;
 
     async getAll(): Promise<Question[]> {
-        return await AppDataSource.getRepository(Question).find();
+        return await this.questionRepository.find();
     }
 
     async getOne(id: number): Promise<Question> {
-        return await AppDataSource.getRepository(Question).findOne({
+        return await this.questionRepository.findOne({
                    where: {id: id},
                    relations: {
                        questionAnswerItem: true,
@@ -25,6 +27,7 @@ export class QuestionService implements IService {
     }
 
     constructor(sqlClient: SqlClient) {
-        this.sqlClient = sqlClient;
+        this.sqlClient          = sqlClient;
+        this.questionRepository = AppDataSource.getRepository(Question);
     }
 }

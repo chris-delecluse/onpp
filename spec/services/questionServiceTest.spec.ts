@@ -1,6 +1,6 @@
 import { QuestionService } from "services/QuestionService";
-import { SqlClient }       from "config/SqlClient";
-import dotenv              from "dotenv";
+import { SqlClient } from "config/SqlClient";
+import dotenv from "dotenv";
 
 const sqlClient = new SqlClient(
     process.env.DB_HOST || "",
@@ -11,7 +11,7 @@ const sqlClient = new SqlClient(
 );
 
 describe("getting all questions should return all questions", async () => {
-    dotenv.config()
+    dotenv.config();
 
     const arr: Question[] = [
         new Question(1, "cc ca va ?")

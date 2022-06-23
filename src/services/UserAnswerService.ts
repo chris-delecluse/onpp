@@ -3,7 +3,7 @@ import { SqlClient } from "config/SqlClient";
 import { UserAnswer } from "entities/UserAnswer";
 import { AppDataSource } from "data-source";
 import { Question } from "entities/Question";
-import { throwError } from "services/error";
+import { throwError } from "exceptions/error";
 import { Repository } from "typeorm";
 import { AnswerIndex } from "entities/AnswerIndex";
 

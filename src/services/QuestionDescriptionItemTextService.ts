@@ -2,7 +2,7 @@ import { IService } from "services/IService";
 import { SqlClient } from "config/SqlClient";
 import { AppDataSource } from "data-source";
 import { QuestionDescriptionItemText } from "entities/QuestionDescriptionItemText";
-import { throwError } from "services/error";
+import { throwError } from "exceptions/error";
 
 export class QuestionDescriptionItemTextService implements IService {
     sqlClient: SqlClient;

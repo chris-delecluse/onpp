@@ -2,7 +2,7 @@ import { IService } from "services/IService";
 import { SqlClient } from "config/SqlClient";
 import { Question } from "entities/Question";
 import { AppDataSource } from "data-source";
-import { throwError } from "services/error";
+import { throwError } from "exceptions/error";
 import { Repository } from "typeorm";
 
 export class QuestionService implements IService {

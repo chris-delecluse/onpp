@@ -31,7 +31,7 @@ const main = async () => {
 
     await AppDataSource.initialize();
 
-    const initDb = new InitDatabase(false);
+    const initDb = new InitDatabase(true);
 
     const questionService                     = new QuestionService(sqlClient);
     const questionDescriptionItemService      = new QuestionDescriptionItemService(sqlClient);

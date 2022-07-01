@@ -1,12 +1,10 @@
 import { IService } from "services/IService";
-import { SqlClient } from "config/SqlClient";
 import { Question } from "entities/Question";
 import { AppDataSource } from "data-source";
 import { throwError } from "exceptions/error";
 import { Repository } from "typeorm";
 
 export class QuestionService implements IService {
-    sqlClient: SqlClient;
     questionRepository: Repository<Question>;
 
     async getAll(): Promise<Question[]> {
@@ -26,8 +24,7 @@ export class QuestionService implements IService {
                throwError(`Cannot find this question with id ${id}`);
     }
 
-    constructor(sqlClient: SqlClient) {
-        this.sqlClient          = sqlClient;
+    constructor() {
         this.questionRepository = AppDataSource.getRepository(Question);
     }
 }

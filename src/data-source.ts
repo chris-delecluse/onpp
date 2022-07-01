@@ -1,5 +1,4 @@
 import { DataSource } from "typeorm";
-import dotenv from "dotenv";
 import { Question } from "entities/Question";
 import { QuestionAnswerItem } from "entities/QuestionAnswerItem";
 import { QuestionDescriptionItemImage } from "entities/QuestionDescriptionItemImage";
@@ -8,8 +7,9 @@ import { QuestionSolution } from "entities/QuestionSolution";
 import { UserAnswer } from "entities/UserAnswer";
 import { UserAnswerResult } from "entities/UserAnswerResult";
 import { QuestionDescriptionItem } from "entities/QuestionDescriptionItem";
+import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config()
 
 export const AppDataSource = new DataSource({
     type: "postgres",

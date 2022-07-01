@@ -12,7 +12,6 @@ import { QuestionDescriptionItemTextService } from "services/QuestionDescription
 import { QuestionSolutionService } from "services/QuestionSolutionService";
 import { UserAnswerService } from "services/UserAnswerService";
 import { UserAnswerResultService } from "services/UserAnswerResultService";
-import { SqlClient } from "config/SqlClient";
 import { InitDatabase } from "config/InitializeDatabase";
 
 class App {
@@ -26,6 +25,7 @@ class App {
             .then(() => this.initializeMiddleware())
             .then(() => this.routes())
             .then(() => this.initializeErrorHandling())
+            .then(() => this.initFakeDatabase(false))
             .then(() => this.listen());
     }
 
@@ -106,22 +106,14 @@ class App {
     };
 }
 
-const sqlClient = new SqlClient(
-    process.env.DB_HOST || "",
-    parseInt(process.env.DB_PORT || ""),
-    process.env.DB_USER || "",
-    process.env.DB_NAME || "",
-    process.env.DB_PASSWORD || ""
-);
-
-const questionService                     = new QuestionService(sqlClient);
-const questionDescriptionItemService      = new QuestionDescriptionItemService(sqlClient);
-const questionAnswerItemService           = new QuestionAnswerItemService(sqlClient);
-const questionDescriptionItemImageService = new QuestionDescriptionItemImageService(sqlClient);
-const questionDescriptionItemTextService  = new QuestionDescriptionItemTextService(sqlClient);
-const questionSolutionService             = new QuestionSolutionService(sqlClient);
-const userAnswerService                   = new UserAnswerService(sqlClient);
-const userAnswerResultService             = new UserAnswerResultService(sqlClient);
+const questionService                     = new QuestionService();
+const questionDescriptionItemService      = new QuestionDescriptionItemService();
+const questionAnswerItemService           = new QuestionAnswerItemService();
+const questionDescriptionItemImageService = new QuestionDescriptionItemImageService();
+const questionDescriptionItemTextService  = new QuestionDescriptionItemTextService();
+const questionSolutionService             = new QuestionSolutionService();
+const userAnswerService                   = new UserAnswerService();
+const userAnswerResultService             = new UserAnswerResultService();
 
 const questionController = new QuestionController(
     questionService,
